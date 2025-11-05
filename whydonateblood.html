@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Project Blood</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600;700&display=swap"
+        rel="stylesheet">
+        <link rel="shortcut icon" href="resources/logo.png">
+</head>
+<body>
+    <section class="header">
+        <nav>
+            <a href="index.html"><img src="resources/logo.png" alt="hi"></a>
+            <div class="nav-links">
+                <ul id="nav-list">
+                    <li><a href="index.html">HOME</a></li>
+                    <li><a href="registration.html">REGISTER</a></li>
+                    <li><a href="finddonor.html">FIND DONOR</a></li>
+                    <li><a href="whydonateblood.html">WHY DONATE BLOOD</a></li>
+                    <li><a href="canyoudonate.html">CAN YOU DONATE</a></li>
+                    <li><a href="emergency.html">It's an emergency!</a></li>
+                </ul>
+            </div>
+        </nav>
+    </section>
+    <div class="text-box">
+        <h1>WHY DONATE <span>BLOOD</span></h1>
+        <p>Every donation saves lives and makes a difference in someone's world.</p>
+    </div>
+    <section class="process">
+        <div class="donprocess">
+            <h1>
+                WHY DONATE BLOOD
+            </h1>
+            <p>You are not useless, know your worth by donating blood.</p>
+        </div>
+        <div class="actprocess">
+            <h2>
+                Why do we need you to give blood
+            </h2>
+            <p>
+                We need new blood donors from all the background to ensure there is right blood available for patients who
+                needs it.
+            </p>
+            <h3>
+                We need:
+            </h3>
+            <ul>
+                <li>Atleast 400 donors to meet the present demand</li>
+                <li>Around 1350 donors a year to replace those who can no longer donate</li>
+                <li>3000 new donors with priority blood types such as O negative every year</li>
+                <li>More young people to start giving blood so we can make sure we have enough blood in the future</li>
+            </ul>
+
+        </div>
+    </section>
+    <section class="bottom">
+        <div class="footer">
+            <div class="col-3">
+                <h3>CONTACT</h3>
+                <p>Lalitpur, Kathmandu | Phone No: 1234567890</p>
+            </div>
+        </div>
+    </section>
+</body>
+<script>
+// Function to highlight the current page in navigation
+function highlightCurrentPage() {
+    const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+    const navLinks = document.querySelectorAll('#nav-list a');
+
+    navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href === currentPath || (currentPath === '' && href === 'index.html')) {
+            link.style.color = '#db8e6b';
+        }
+    });
+}
+
+// Highlight current page when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+    highlightCurrentPage();
+});
+</script>
+</html>

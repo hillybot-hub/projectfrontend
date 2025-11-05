@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard - Project Blood</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="resources/logo.png">
+    <style>
+        body {
+            background-image: url("resources/background.jpg");
+            background-size: 100%;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .admin-header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        .admin-header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: #11ABB0;
+        }
+
+        .admin-nav {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(17, 171, 176, 0.3);
+        }
+
+        .admin-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .admin-nav li {
+            display: inline-block;
+        }
+
+        .admin-nav a {
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            background: rgba(17, 171, 176, 0.2);
+            border: 1px solid rgba(17, 171, 176, 0.3);
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .admin-nav a:hover, .admin-nav a.active {
+            background: #11ABB0;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(17, 171, 176, 0.4);
+        }
+
+        .dashboard-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(17, 171, 176, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .dashboard-card h3 {
+            color: #11ABB0;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .dashboard-card p {
+            color: white;
+            line-height: 1.6;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #ff004c;
+            margin-bottom: 10px;
+        }
+
+        .admin-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(17, 171, 176, 0.3);
+        }
+
+        .admin-section h2 {
+            color: #11ABB0;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: white;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(17, 171, 176, 0.5);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            font-size: 14px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #11ABB0;
+            box-shadow: 0 0 0 2px rgba(17, 171, 176, 0.2);
+        }
+
+        .btn {
+            background: #11ABB0;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+        }
+
+        .btn:hover {
+            background: #0e8a8a;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: #ff004c;
+        }
+
+        .btn-danger:hover {
+            background: #cc0039;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(17, 171, 176, 0.3);
+        }
+
+        .data-table th {
+            background: #11ABB0;
+            color: white;
+            font-weight: 600;
+        }
+
+        .data-table tr:hover {
+            background: rgba(17, 171, 176, 0.1);
+        }
+
+        .logout-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #ff004c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #cc0039;
+            transform: translateY(-2px);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .admin-nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .dashboard-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#" onclick="logout()" class="logout-btn">Logout</a>
+
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1>Project Blood Admin Dashboard</h1>
+            <p>Manage donors, blood requests, and system operations</p>
+        </div>
+
+        <nav class="admin-nav">
+            <ul>
+                <li><a href="#dashboard" class="tab-link active" onclick="showTab('dashboard')">Dashboard</a></li>
+                <li><a href="#users" class="tab-link" onclick="showTab('users')">User Management</a></li>
+                <li><a href="#donors" class="tab-link" onclick="showTab('donors')">Donor Management</a></li>
+                <li><a href="#requests" class="tab-link" onclick="showTab('requests')">Blood Requests</a></li>
+                <li><a href="#reports" class="tab-link" onclick="showTab('reports')">Reports</a></li>
+                <li><a href="#settings" class="tab-link" onclick="showTab('settings')">Settings</a></li>
+            </ul>
+        </nav>
+
+        <!-- Dashboard Tab -->
+        <div id="dashboard" class="tab-content active">
+            <div class="dashboard-content">
+                <div class="dashboard-card">
+                    <h3>Total Users</h3>
+                    <div class="stat-number" id="totalUsers">--</div>
+                    <p>Registered blood donors and recipients</p>
+                </div>
+                <div class="dashboard-card">
+                    <h3>Blood Requests</h3>
+                    <div class="stat-number" id="totalRequests">--</div>
+                    <p>Active blood donation requests</p>
+                </div>
+                <div class="dashboard-card">
+                    <h3>Completed Donations</h3>
+                    <div class="stat-number" id="completedDonations">--</div>
+                    <p>Successful blood donations this month</p>
+                </div>
+                <div class="dashboard-card">
+                    <h3>System Health</h3>
+                    <div class="stat-number" id="systemHealth">98%</div>
+                    <p>Database and server status</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Management Tab -->
+        <div id="users" class="tab-content">
+            <div class="admin-section">
+                <h2>User Management</h2>
+                <div class="form-group">
+                    <label for="searchUser">Search Users:</label>
+                    <input type="text" id="searchUser" placeholder="Enter name, email, or phone...">
+                    <button class="btn" onclick="searchUsers()">Search</button>
+                </div>
+
+                <table class="data-table" id="usersTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Blood Type</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody">
+                        <tr>
+                            <td colspan="6" style="text-align: center; color: #666;">Loading users...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Donor Management Tab -->
+        <div id="donors" class="tab-content">
+            <div class="admin-section">
+                <h2>Donor Management</h2>
+                <div style="margin-bottom: 20px;">
+                    <button class="btn" onclick="showAddDonorForm()">Add New Donor</button>
+                    <button class="btn" onclick="exportDonorData()">Export Data</button>
+                </div>
+
+                <div id="addDonorForm" style="display: none; margin-bottom: 20px;">
+                    <h3>Add New Donor</h3>
+                    <form id="donorForm" onsubmit="addDonor(event)">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <div class="form-group">
+                                <label for="donorName">Full Name:</label>
+                                <input type="text" id="donorName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="donorEmail">Email:</label>
+                                <input type="email" id="donorEmail" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="donorPhone">Phone:</label>
+                                <input type="tel" id="donorPhone" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="donorBloodType">Blood Type:</label>
+                                <select id="donorBloodType" required>
+                                    <option value="">Select Blood Type</option>
+                                    <option value="A+">A+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B+">B+</option>
+                                    <option value="B-">B-</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="AB-">AB-</option>
+                                    <option value="O+">O+</option>
+                                    <option value="O-">O-</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="donorAddress">Address:</label>
+                            <textarea id="donorAddress" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Add Donor</button>
+                        <button type="button" class="btn btn-danger" onclick="hideAddDonorForm()">Cancel</button>
+                    </form>
+                </div>
+
+                <table class="data-table" id="donorsTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Blood Type</th>
+                            <th>Last Donation</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="donorsTableBody">
+                        <tr>
+                            <td colspan="6" style="text-align: center; color: #666;">Loading donors...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Blood Requests Tab -->
+        <div id="requests" class="tab-content">
+            <div class="admin-section">
+                <h2>Blood Requests Management</h2>
+                <div style="margin-bottom: 20px;">
+                    <button class="btn" onclick="refreshRequests()">Refresh</button>
+                    <button class="btn" onclick="showUrgentRequests()">Show Urgent Only</button>
+                </div>
+
+                <table class="data-table" id="requestsTable">
+                    <thead>
+                        <tr>
+                            <th>Request ID</th>
+                            <th>Patient Name</th>
+                            <th>Blood Type</th>
+                            <th>Urgency</th>
+                            <th>Hospital</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="requestsTableBody">
+                        <tr>
+                            <td colspan="7" style="text-align: center; color: #666;">Loading requests...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Reports Tab -->
+        <div id="reports" class="tab-content">
+            <div class="admin-section">
+                <h2>Reports & Analytics</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px;">
+                    <div class="dashboard-card">
+                        <h3>Monthly Donations</h3>
+                        <canvas id="donationsChart" width="200" height="150"></canvas>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3>Blood Type Distribution</h3>
+                        <canvas id="bloodTypeChart" width="200" height="150"></canvas>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <button class="btn" onclick="generateReport('monthly')">Generate Monthly Report</button>
+                    <button class="btn" onclick="generateReport('yearly')">Generate Yearly Report</button>
+                    <button class="btn" onclick="exportAnalytics()">Export Analytics</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Tab -->
+        <div id="settings" class="tab-content">
+            <div class="admin-section">
+                <h2>System Settings</h2>
+                <form id="settingsForm">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div class="form-group">
+                            <label for="siteTitle">Site Title:</label>
+                            <input type="text" id="siteTitle" value="Project Blood">
+                        </div>
+                        <div class="form-group">
+                            <label for="adminEmail">Admin Email:</label>
+                            <input type="email" id="adminEmail" value="admin@projectblood.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="emergencyContact">Emergency Contact:</label>
+                            <input type="tel" id="emergencyContact" value="+977-1234567890">
+                        </div>
+                        <div class="form-group">
+                            <label for="maxRequests">Max Daily Requests:</label>
+                            <input type="number" id="maxRequests" value="50">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="notificationSettings">Email Notifications:</label>
+                        <div style="display: flex; gap: 20px; margin-top: 10px;">
+                            <label><input type="checkbox" checked> New Registrations</label>
+                            <label><input type="checkbox" checked> Urgent Requests</label>
+                            <label><input type="checkbox"> System Alerts</label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn">Save Settings</button>
+                    <button type="button" class="btn btn-danger" onclick="resetSettings()">Reset to Default</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functionality
+        function showTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => content.classList.remove('active'));
+
+            // Remove active class from all tab links
+            const tabLinks = document.querySelectorAll('.tab-link');
+            tabLinks.forEach(link => link.classList.remove('active'));
+
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+
+            // Load data for the selected tab
+            loadTabData(tabName);
+        }
+
+        // Load data for different tabs
+        function loadTabData(tabName) {
+            switch(tabName) {
+                case 'dashboard':
+                    loadDashboardStats();
+                    break;
+                case 'users':
+                    loadUsersData();
+                    break;
+                case 'donors':
+                    loadDonorsData();
+                    break;
+                case 'requests':
+                    loadRequestsData();
+                    break;
+                case 'reports':
+                    loadReportsData();
+                    break;
+            }
+        }
+
+        // Dashboard statistics
+        function loadDashboardStats() {
+            // Simulate loading dashboard data
+            setTimeout(() => {
+                document.getElementById('totalUsers').textContent = '1,247';
+                document.getElementById('totalRequests').textContent = '89';
+                document.getElementById('completedDonations').textContent = '156';
+            }, 500);
+        }
+
+        // Users management
+        function loadUsersData() {
+            const tbody = document.getElementById('usersTableBody');
+            tbody.innerHTML = `
+                <tr>
+                    <td>1001</td>
+                    <td>John Doe</td>
+                    <td>john@example.com</td>
+                    <td>O+</td>
+                    <td>Active</td>
+                    <td>
+                        <button class="btn" onclick="editUser(1001)">Edit</button>
+                        <button class="btn btn-danger" onclick="deleteUser(1001)">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1002</td>
+                    <td>Jane Smith</td>
+                    <td>jane@example.com</td>
+                    <td>A-</td>
+                    <td>Active</td>
+                    <td>
+                        <button class="btn" onclick="editUser(1002)">Edit</button>
+                        <button class="btn btn-danger" onclick="deleteUser(1002)">Delete</button>
+                    </td>
+                </tr>
+            `;
+        }
+
+        // Donors management
+        function loadDonorsData() {
+            const tbody = document.getElementById('donorsTableBody');
+            tbody.innerHTML = `
+                <tr>
+                    <td>D001</td>
+                    <td>Alice Johnson</td>
+                    <td>O+</td>
+                    <td>2024-01-15</td>
+                    <td>Eligible</td>
+                    <td>
+                        <button class="btn" onclick="viewDonor('D001')">View</button>
+                        <button class="btn" onclick="contactDonor('D001')">Contact</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>D002</td>
+                    <td>Bob Wilson</td>
+                    <td>A+</td>
+                    <td>2024-02-20</td>
+                    <td>Eligible</td>
+                    <td>
+                        <button class="btn" onclick="viewDonor('D002')">View</button>
+                        <button class="btn" onclick="contactDonor('D002')">Contact</button>
+                    </td>
+                </tr>
+            `;
+        }
+
+        // Blood requests
+        function loadRequestsData() {
+            const tbody = document.getElementById('requestsTableBody');
+            tbody.innerHTML = `
+                <tr>
+                    <td>RQ001</td>
+                    <td>Mary Davis</td>
+                    <td>B+</td>
+                    <td style="color: #ff004c; font-weight: bold;">URGENT</td>
+                    <td>City Hospital</td>
+                    <td>Pending</td>
+                    <td>
+                        <button class="btn" onclick="assignDonor('RQ001')">Assign Donor</button>
+                        <button class="btn" onclick="viewRequest('RQ001')">Details</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>RQ002</td>
+                    <td>Tom Brown</td>
+                    <td>AB-</td>
+                    <td>Normal</td>
+                    <td>Regional Medical Center</td>
+                    <td>Matched</td>
+                    <td>
+                        <button class="btn" onclick="viewRequest('RQ002')">Details</button>
+                    </td>
+                </tr>
+            `;
+        }
+
+        // Reports and analytics
+        function loadReportsData() {
+            // Initialize charts (would use Chart.js in real implementation)
+            console.log('Loading reports data...');
+        }
+
+        // User management functions
+        function searchUsers() {
+            const searchTerm = document.getElementById('searchUser').value;
+            alert(`Searching for users: ${searchTerm}\n\nBackend integration needed for actual search functionality.`);
+        }
+
+        function editUser(userId) {
+            alert(`Edit user ${userId}\n\nBackend integration needed for user editing functionality.`);
+        }
+
+        function deleteUser(userId) {
+            if (confirm(`Are you sure you want to delete user ${userId}?`)) {
+                alert(`User ${userId} deleted\n\nBackend integration needed for actual deletion.`);
+            }
+        }
+
+        // Donor management functions
+        function showAddDonorForm() {
+            document.getElementById('addDonorForm').style.display = 'block';
+        }
+
+        function hideAddDonorForm() {
+            document.getElementById('addDonorForm').style.display = 'none';
+        }
+
+        function addDonor(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const donorData = Object.fromEntries(formData);
+
+            alert(`Adding new donor:\n${JSON.stringify(donorData, null, 2)}\n\nBackend integration needed for actual donor creation.`);
+            hideAddDonorForm();
+            event.target.reset();
+        }
+
+        function exportDonorData() {
+            alert('Exporting donor data...\n\nBackend integration needed for actual data export functionality.');
+        }
+
+        function viewDonor(donorId) {
+            alert(`Viewing donor ${donorId}\n\nBackend integration needed for donor details view.`);
+        }
+
+        function contactDonor(donorId) {
+            alert(`Contacting donor ${donorId}\n\nBackend integration needed for donor communication.`);
+        }
+
+        // Request management functions
+        function refreshRequests() {
+            loadRequestsData();
+            alert('Requests refreshed');
+        }
+
+        function showUrgentRequests() {
+            alert('Filtering to show only urgent requests\n\nBackend integration needed for filtering functionality.');
+        }
+
+        function assignDonor(requestId) {
+            alert(`Assigning donor to request ${requestId}\n\nBackend integration needed for donor assignment.`);
+        }
+
+        function viewRequest(requestId) {
+            alert(`Viewing request ${requestId} details\n\nBackend integration needed for request details view.`);
+        }
+
+        // Reports functions
+        function generateReport(type) {
+            alert(`Generating ${type} report...\n\nBackend integration needed for report generation.`);
+        }
+
+        function exportAnalytics() {
+            alert('Exporting analytics data...\n\nBackend integration needed for analytics export.');
+        }
+
+        // Settings functions
+        function resetSettings() {
+            if (confirm('Are you sure you want to reset all settings to default?')) {
+                document.getElementById('settingsForm').reset();
+                alert('Settings reset to default\n\nBackend integration needed for settings persistence.');
+            }
+        }
+
+        // Logout function
+        function logout() {
+            // Clear any stored session data
+            localStorage.clear();
+            sessionStorage.clear();
+
+            // In a real application, you would also clear server-side session
+            // For now, just redirect to home page
+            alert('Logged out successfully!');
+            window.location.href = 'index.html';
+        }
+
+        // Initialize dashboard on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDashboardStats();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Project Blood</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600;700&display=swap"
+        rel="stylesheet">
+        <link rel="shortcut icon" href="resources/logo.png">
+        </head>
+        <body>
+          <section class="header">
+            <nav>
+                <a href="index.html"><img src="resources/logo.png" alt="hi"></a>
+                    <div class="nav-links">
+                    <ul id="nav-list">
+                        <li><a href="index.html">HOME</a></li>
+                        <li><a href="registration.html">REGISTER</a></li>
+                        <li><a href="finddonor.html">FIND DONOR</a></li>
+                        <li><a href="whydonateblood.html">WHY DONATE BLOOD</a></li>
+                        <li><a href="canyoudonate.html">CAN YOU DONATE</a></li>
+                        <li><a href="emergency.html">It's an emergency!</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </section>
+        <div class="text-box">
+            <h1>IT'S AN <span>EMERGENCY</span></h1>
+            <p>Get immediate help and information for urgent blood donation needs.</p>
+        </div>
+        <section class="process">
+            <div class="donprocess">
+                <h1>
+                    EMERGENCY BLOOD SERVICES
+                </h1>
+                <p> When every second counts, we're here to help connect you with life-saving blood donations.</p>
+            </div>
+            <div class="actprocess">
+                <h2>Emergency Contact:</h2>
+                <p>In case of emergency, please call our emergency desk at <a href="tel:[+917558951351]">[7558****51]</a> or email us at <a href="mailto:[projectblood@gmail.com]">[projectblood@gmail.com]</a>.</p>
+                <h2>Urgent Blood Donation Needs:</h2>
+                <ul>
+                  <li>Type O+</li>
+                  <li>Type O-</li>
+                  <li>Type A+</li>
+                  <li>Type B+</li>
+                  <li>Type AB+</li>
+                </ul>
+                <h2>Donor Eligibility Criteria:</h2>
+                <ul>
+                  <li>Be at least 17 years old</li>
+                  <li>Weigh at least 50 kg</li>
+                  <li>Be in good health</li>
+                  <li>Not have a history of HIV/AIDS, hepatitis, or syphilis</li>
+                  <li>Not have engaged in high-risk behaviors such as intravenous drug use or unprotected sex</li>
+                </ul>
+                <h2>Safety Measures:</h2>
+                <ul>
+                  <li>Using sterile, disposable equipment for each donation</li>
+                  <li>Screening all donors for health risks and infectious diseases</li>
+                  <li>Conducting a thorough medical history review before each donation</li>
+                  <li>Providing refreshments after each donation to help maintain blood sugar levels</li>
+                </ul>
+                <p>Thank you for considering donating blood to help those in need. Please contact us if you have any questions or require emergency blood services.</p>
+            </div>
+        </section>
+          <section class="bottom">
+            <div class="footer">
+            <div class="col-3">
+                <h3>CONTACT</h3>
+                <p>Lalitpur, Kathmandu | Phone No: 1234567890</p>
+            </div>
+            </div>
+        </section>
+   </body>
+<script>
+// Function to highlight the current page in navigation
+function highlightCurrentPage() {
+    const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+    const navLinks = document.querySelectorAll('#nav-list a');
+
+    navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href === currentPath || (currentPath === '' && href === 'index.html')) {
+            link.style.color = '#db8e6b';
+        }
+    });
+}
+
+// Highlight current page when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+    highlightCurrentPage();
+});
+</script>
+</html>

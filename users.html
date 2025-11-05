@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Dashboard - Project Blood</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="resources/logo.png">
+    <style>
+        body {
+            background-image: url("resources/background.jpg");
+            background-size: 100%;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .user-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .user-header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        .user-header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: #11ABB0;
+        }
+
+        .user-nav {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(17, 171, 176, 0.3);
+        }
+
+        .user-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .user-nav li {
+            display: inline-block;
+        }
+
+        .user-nav a {
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            background: rgba(17, 171, 176, 0.2);
+            border: 1px solid rgba(17, 171, 176, 0.3);
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .user-nav a:hover, .user-nav a.active {
+            background: #11ABB0;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(17, 171, 176, 0.4);
+        }
+
+        .dashboard-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(17, 171, 176, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .dashboard-card h3 {
+            color: #11ABB0;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .dashboard-card p {
+            color: white;
+            line-height: 1.6;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #ff004c;
+            margin-bottom: 10px;
+        }
+
+        .user-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(17, 171, 176, 0.3);
+        }
+
+        .user-section h2 {
+            color: #11ABB0;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: white;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(17, 171, 176, 0.5);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            font-size: 14px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #11ABB0;
+            box-shadow: 0 0 0 2px rgba(17, 171, 176, 0.2);
+        }
+
+        .btn {
+            background: #11ABB0;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+        }
+
+        .btn:hover {
+            background: #0e8a8a;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: #ff004c;
+        }
+
+        .btn-danger:hover {
+            background: #cc0039;
+        }
+
+        .btn-success {
+            background: #4CAF50;
+        }
+
+        .btn-success:hover {
+            background: #45a049;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(17, 171, 176, 0.3);
+        }
+
+        .data-table th {
+            background: #11ABB0;
+            color: white;
+            font-weight: 600;
+        }
+
+        .data-table tr:hover {
+            background: rgba(17, 171, 176, 0.1);
+        }
+
+        .logout-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #ff004c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #cc0039;
+            transform: translateY(-2px);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .hospital-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(17, 171, 176, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .hospital-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .hospital-name {
+            color: #11ABB0;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .hospital-info {
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        .blood-stock {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .blood-type {
+            background: rgba(17, 171, 176, 0.2);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            border: 1px solid rgba(17, 171, 176, 0.3);
+        }
+
+        .blood-type.available {
+            background: #4CAF50;
+        }
+
+        .blood-type.low {
+            background: #ff9500;
+        }
+
+        .blood-type.out {
+            background: #ff004c;
+        }
+
+        .priority-badge {
+            background: linear-gradient(45deg, #ff004c, #ff9500);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(255, 0, 76, 0.3);
+        }
+
+        .profile-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .profile-field {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(17, 171, 176, 0.3);
+        }
+
+        .profile-field label {
+            color: #11ABB0;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .profile-field span {
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .user-nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .dashboard-content {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#" onclick="logout()" class="logout-btn">Logout</a>
+
+    <div class="user-container">
+        <div class="user-header">
+            <h1>User Dashboard</h1>
+            <p>Manage your blood donations, requests, and profile</p>
+        </div>
+
+        <nav class="user-nav">
+            <ul>
+                <li><a href="#dashboard" class="tab-link active" onclick="showTab('dashboard')">Dashboard</a></li>
+                <li><a href="#request" class="tab-link" onclick="showTab('request')">Request Blood</a></li>
+                <li><a href="#hospitals" class="tab-link" onclick="showTab('hospitals')">Nearby Hospitals</a></li>
+                <li><a href="#donate" class="tab-link" onclick="showTab('donate')">Donate Blood</a></li>
+                <li><a href="#history" class="tab-link" onclick="showTab('history')">Blood History</a></li>
+                <li><a href="#profile" class="tab-link" onclick="showTab('profile')">My Profile</a></li>
+            </ul>
+        </nav>
+
+        <!-- Dashboard Tab -->
+        <div id="dashboard" class="tab-content active">
+            <div class="dashboard-content">
+                <div class="dashboard-card">
+                    <h3>My Donations</h3>
+                    <div class="stat-number" id="myDonations">--</div>
+                    <p>Total blood donations made</p>
+                </div>
+                <div class="dashboard-card">
+                    <h3>Blood Requests</h3>
+                    <div class="stat-number" id="myRequests">--</div>
+                    <p>Active blood requests</p>
+                </div>
+                <div class="dashboard-card">
+                    <h3>Next Eligible</h3>
+                    <div class="stat-number" id="nextEligible">--</div>
+                    <p>Days until next donation</p>
+                </div>
+                <div class="dashboard-card">
+                    <h3>Priority Status</h3>
+                    <div class="stat-number" id="priorityStatus">--</div>
+                    <p>Your donor priority level</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Request Blood Tab -->
+        <div id="request" class="tab-content">
+            <div class="user-section">
+                <h2>Request Blood</h2>
+                <div style="margin-bottom: 20px;">
+                    <button class="btn" onclick="showRequestForm()">New Blood Request</button>
+                </div>
+
+                <div id="requestForm" style="display: none; margin-bottom: 20px;">
+                    <h3>Submit Blood Request</h3>
+                    <form id="bloodRequestForm" onsubmit="submitBloodRequest(event)">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <div class="form-group">
+                                <label for="patientName">Patient Name:</label>
+                                <input type="text" id="patientName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="relationship">Relationship to Patient:</label>
+                                <select id="relationship" required>
+                                    <option value="">Select Relationship</option>
+                                    <option value="self">Self</option>
+                                    <option value="family">Family Member</option>
+                                    <option value="friend">Friend</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="bloodType">Blood Type Required:</label>
+                                <select id="bloodType" required>
+                                    <option value="">Select Blood Type</option>
+                                    <option value="A+">A+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B+">B+</option>
+                                    <option value="B-">B-</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="AB-">AB-</option>
+                                    <option value="O+">O+</option>
+                                    <option value="O-">O-</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="unitsNeeded">Units Needed:</label>
+                                <input type="number" id="unitsNeeded" min="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="urgency">Urgency Level:</label>
+                                <select id="urgency" required>
+                                    <option value="normal">Normal</option>
+                                    <option value="urgent">Urgent</option>
+                                    <option value="critical">Critical</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="hospital">Preferred Hospital:</label>
+                                <select id="hospital" required>
+                                    <option value="">Select Hospital</option>
+                                    <option value="city-hospital">City General Hospital</option>
+                                    <option value="regional-medical">Regional Medical Center</option>
+                                    <option value="metro-health">Metro Health Center</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="reason">Reason for Request:</label>
+                            <textarea id="reason" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Submit Request</button>
+                        <button type="button" class="btn btn-danger" onclick="hideRequestForm()">Cancel</button>
+                    </form>
+                </div>
+
+                <table class="data-table" id="requestsTable">
+                    <thead>
+                        <tr>
+                            <th>Request ID</th>
+                            <th>Patient</th>
+                            <th>Blood Type</th>
+                            <th>Units</th>
+                            <th>Hospital</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="requestsTableBody">
+                        <tr>
+                            <td colspan="7" style="text-align: center; color: #666;">No active requests</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Nearby Hospitals Tab -->
+        <div id="hospitals" class="tab-content">
+            <div class="user-section">
+                <h2>Nearby Hospitals</h2>
+                <div class="form-group">
+                    <label for="locationFilter">Filter by Location:</label>
+                    <select id="locationFilter" onchange="filterHospitals()">
+                        <option value="all">All Locations</option>
+                        <option value="nearby">Within 5km</option>
+                        <option value="city">Within City</option>
+                    </select>
+                </div>
+
+                <div id="hospitalsList">
+                    <!-- Hospital cards will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Donate Blood Tab -->
+        <div id="donate" class="tab-content">
+            <div class="user-section">
+                <h2>Schedule Blood Donation</h2>
+                <div style="margin-bottom: 20px;">
+                    <button class="btn btn-success" onclick="showDonationForm()">Schedule Donation</button>
+                    <button class="btn" onclick="checkEligibility()">Check Eligibility</button>
+                </div>
+
+                <div id="donationForm" style="display: none; margin-bottom: 20px;">
+                    <h3>Schedule Your Donation</h3>
+                    <form id="scheduleDonationForm" onsubmit="scheduleDonation(event)">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <div class="form-group">
+                                <label for="donationDate">Preferred Date:</label>
+                                <input type="date" id="donationDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="donationTime">Preferred Time:</label>
+                                <select id="donationTime" required>
+                                    <option value="">Select Time</option>
+                                    <option value="09:00">9:00 AM</option>
+                                    <option value="10:00">10:00 AM</option>
+                                    <option value="11:00">11:00 AM</option>
+                                    <option value="14:00">2:00 PM</option>
+                                    <option value="15:00">3:00 PM</option>
+                                    <option value="16:00">4:00 PM</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="donationLocation">Donation Center:</label>
+                                <select id="donationLocation" required>
+                                    <option value="">Select Location</option>
+                                    <option value="city-hospital">City General Hospital</option>
+                                    <option value="regional-medical">Regional Medical Center</option>
+                                    <option value="metro-health">Metro Health Center</option>
+                                    <option value="mobile-unit">Mobile Blood Drive</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="donationType">Donation Type:</label>
+                                <select id="donationType" required>
+                                    <option value="whole-blood">Whole Blood</option>
+                                    <option value="plasma">Plasma Only</option>
+                                    <option value="platelets">Platelets</option>
+                                    <option value="double-red">Double Red Cells</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="notes">Additional Notes:</label>
+                            <textarea id="notes" rows="2" placeholder="Any special requirements or notes..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-success">Schedule Donation</button>
+                        <button type="button" class="btn btn-danger" onclick="hideDonationForm()">Cancel</button>
+                    </form>
+                </div>
+
+                <table class="data-table" id="donationsTable">
+                    <thead>
+                        <tr>
+                            <th>Appointment ID</th>
+                            <th>Date & Time</th>
+                            <th>Location</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="donationsTableBody">
+                        <tr>
+                            <td colspan="6" style="text-align: center; color: #666;">No scheduled donations</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Blood History Tab -->
+        <div id="history" class="tab-content">
+            <div class="user-section">
+                <h2>My Blood Donation History</h2>
+                <div style="margin-bottom: 20px;">
+                    <button class="btn" onclick="exportHistory()">Export History</button>
+                    <button class="btn" onclick="downloadCertificate()">Download Certificate</button>
+                </div>
+
+                <table class="data-table" id="historyTable">
+                    <thead>
+                        <tr>
+                            <th>Donation ID</th>
+                            <th>Date</th>
+                            <th>Location</th>
+                            <th>Blood Type</th>
+                            <th>Units</th>
+                            <th>Status</th>
+                            <th>Certificate</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyTableBody">
+                        <tr>
+                            <td colspan="7" style="text-align: center; color: #666;">Loading donation history...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- My Profile Tab -->
+        <div id="profile" class="tab-content">
+            <div class="user-section">
+                <h2>My Profile</h2>
+
+                <div id="priorityBadge" style="display: none;">
+                    <!-- Priority badge will be shown here -->
+                </div>
+
+                <div class="profile-section">
+                    <div>
+                        <div class="profile-field">
+                            <label>Full Name:</label>
+                            <span id="profileName">--</span>
+                        </div>
+                        <div class="profile-field">
+                            <label>Blood Type:</label>
+                            <span id="profileBloodType">--</span>
+                        </div>
+                        <div class="profile-field">
+                            <label>Date of Birth:</label>
+                            <span id="profileDOB">--</span>
+                        </div>
+                        <div class="profile-field">
+                            <label>Phone:</label>
+                            <span id="profilePhone">--</span>
+                        </div>
+                        <div class="profile-field">
+                            <label>Email:</label>
+                            <span id="profileEmail">--</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="profile-field">
+                            <label>Total Donations:</label>
+                            <span id="totalDonations">--</span>
+                        </div>
+                        <div class="profile-field">
+                            <label>Last Donation:</label>
+                            <span id="lastDonation">--</span>
+                        </div>
+                        <div class="profile-field">
+                            <label>Next Eligible:</label>
+                            <span id="nextEligibleDate">--</span>
+                        </div>
+                        <div class="profile-field">
+                            <label>Priority Status:</label>
+                            <span id="priorityStatusText">--</span>
+                        </div>
+                        <div class="profile-field">
+                            <label>Medical History:</label>
+                            <span id="medicalHistory">--</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 30px;">
+                    <button class="btn" onclick="editProfile()">Edit Profile</button>
+                    <button class="btn" onclick="updateMedicalHistory()">Update Medical History</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functionality
+        function showTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => content.classList.remove('active'));
+
+            // Remove active class from all tab links
+            const tabLinks = document.querySelectorAll('.tab-link');
+            tabLinks.forEach(link => link.classList.remove('active'));
+
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+
+            // Load data for the selected tab
+            loadTabData(tabName);
+        }
+
+        // Load data for different tabs
+        function loadTabData(tabName) {
+            switch(tabName) {
+                case 'dashboard':
+                    loadDashboardStats();
+                    break;
+                case 'request':
+                    loadRequestsData();
+                    break;
+                case 'hospitals':
+                    loadHospitalsData();
+                    break;
+                case 'donate':
+                    loadDonationsData();
+                    break;
+                case 'history':
+                    loadHistoryData();
+                    break;
+                case 'profile':
+                    loadProfileData();
+                    break;
+            }
+        }
+
+        // Dashboard statistics
+        function loadDashboardStats() {
+            setTimeout(() => {
+                document.getElementById('myDonations').textContent = '12';
+                document.getElementById('myRequests').textContent = '2';
+                document.getElementById('nextEligible').textContent = '45';
+                document.getElementById('priorityStatus').textContent = 'Gold';
+            }, 500);
+        }
+
+        // Blood requests
+        function loadRequestsData() {
+            const tbody = document.getElementById('requestsTableBody');
+            tbody.innerHTML = `
+                <tr>
+                    <td>RQ001</td>
+                    <td>John Doe</td>
+                    <td>O+</td>
+                    <td>2</td>
+                    <td>City General Hospital</td>
+                    <td>Pending</td>
+                    <td>
+                        <button class="btn" onclick="viewRequestDetails('RQ001')">Details</button>
+                        <button class="btn btn-danger" onclick="cancelRequest('RQ001')">Cancel</button>
+                    </td>
+                </tr>
+            `;
+        }
+
+        // Nearby hospitals
+        function loadHospitalsData() {
+            const hospitalsList = document.getElementById('hospitalsList');
+            hospitalsList.innerHTML = `
+                <div class="hospital-card">
+                    <div class="hospital-name">City General Hospital</div>
+                    <div class="hospital-info">Location: Downtown, 2.3 km away</div>
+                    <div class="hospital-info">Phone: +977-123-456789</div>
+                    <div class="blood-stock">
+                        <span class="blood-type available">A+ (15)</span>
+                        <span class="blood-type available">O+ (8)</span>
+                        <span class="blood-type low">B+ (2)</span>
+                        <span class="blood-type available">AB+ (5)</span>
+                        <span class="blood-type out">A- (0)</span>
+                        <span class="blood-type available">O- (3)</span>
+                        <span class="blood-type low">B- (1)</span>
+                        <span class="blood-type available">AB- (4)</span>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <button class="btn" onclick="bookAppointment('city-general')">Book Appointment</button>
+                        <button class="btn" onclick="viewHospitalDetails('city-general')">View Details</button>
+                    </div>
+                </div>
+
+                <div class="hospital-card">
+                    <div class="hospital-name">Regional Medical Center</div>
+                    <div class="hospital-info">Location: Midtown, 4.1 km away</div>
+                    <div class="hospital-info">Phone: +977-987-654321</div>
+                    <div class="blood-stock">
+                        <span class="blood-type available">A+ (12)</span>
+                        <span class="blood-type available">O+ (20)</span>
+                        <span class="blood-type available">B+ (7)</span>
+                        <span class="blood-type available">AB+ (3)</span>
+                        <span class="blood-type low">A- (1)</span>
+                        <span class="blood-type available">O- (6)</span>
+                        <span class="blood-type available">B- (4)</span>
+                        <span class="blood-type low">AB- (0)</span>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <button class="btn" onclick="bookAppointment('regional-medical')">Book Appointment</button>
+                        <button class="btn" onclick="viewHospitalDetails('regional-medical')">View Details</button>
+                    </div>
+                </div>
+
+                <div class="hospital-card">
+                    <div class="hospital-name">Metro Health Center</div>
+                    <div class="hospital-info">Location: Uptown, 6.8 km away</div>
+                    <div class="hospital-info">Phone: +977-555-012345</div>
+                    <div class="blood-stock">
+                        <span class="blood-type low">A+ (3)</span>
+                        <span class="blood-type available">O+ (14)</span>
+                        <span class="blood-type available">B+ (9)</span>
+                        <span class="blood-type available">AB+ (6)</span>
+                        <span class="blood-type available">A- (5)</span>
+                        <span class="blood-type available">O- (8)</span>
+                        <span class="blood-type available">B- (3)</span>
+                        <span class="blood-type available">AB- (2)</span>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <button class="btn" onclick="bookAppointment('metro-health')">Book Appointment</button>
+                        <button class="btn" onclick="viewHospitalDetails('metro-health')">View Details</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Donations
+        function loadDonationsData() {
+            const tbody = document.getElementById('donationsTableBody');
+            tbody.innerHTML = `
+                <tr>
+                    <td>AP001</td>
+                    <td>2024-02-15 10:00 AM</td>
+                    <td>City General Hospital</td>
+                    <td>Whole Blood</td>
+                    <td>Scheduled</td>
+                    <td>
+                        <button class="btn" onclick="rescheduleAppointment('AP001')">Reschedule</button>
+                        <button class="btn btn-danger" onclick="cancelAppointment('AP001')">Cancel</button>
+                    </td>
+                </tr>
+            `;
+        }
+
+        // Donation history
+        function loadHistoryData() {
+            const tbody = document.getElementById('historyTableBody');
+            tbody.innerHTML = `
+                <tr>
+                    <td>DN001</td>
+                    <td>2024-01-15</td>
+                    <td>City General Hospital</td>
+                    <td>O+</td>
+                    <td>1</td>
+                    <td>Completed</td>
+                    <td><button class="btn" onclick="downloadCertificate('DN001')">Download</button></td>
+                </tr>
+                <tr>
+                    <td>DN002</td>
+                    <td>2023-10-20</td>
+                    <td>Regional Medical Center</td>
+                    <td>O+</td>
+                    <td>1</td>
+                    <td>Completed</td>
+                    <td><button class="btn" onclick="downloadCertificate('DN002')">Download</button></td>
+                </tr>
+                <tr>
+                    <td>DN003</td>
+                    <td>2023-07-12</td>
+                    <td>Metro Health Center</td>
+                    <td>O+</td>
+                    <td>1</td>
+                    <td>Completed</td>
+                    <td><button class="btn" onclick="downloadCertificate('DN003')">Download</button></td>
+                </tr>
+            `;
+        }
+
+        // Profile data
+        function loadProfileData() {
+            // Simulate loading profile data
+            document.getElementById('profileName').textContent = 'John Doe';
+            document.getElementById('profileBloodType').textContent = 'O+';
+            document.getElementById('profileDOB').textContent = '1990-05-15';
+            document.getElementById('profilePhone').textContent = '+977-123-456789';
+            document.getElementById('profileEmail').textContent = 'john.doe@example.com';
+            document.getElementById('totalDonations').textContent = '12';
+            document.getElementById('lastDonation').textContent = '2024-01-15';
+            document.getElementById('nextEligibleDate').textContent = '2024-04-15';
+            document.getElementById('priorityStatusText').textContent = 'Gold Donor (10+ donations)';
+            document.getElementById('medicalHistory').textContent = 'No known allergies. Regular donor.';
+
+            // Show priority badge for gold donors
+            if (parseInt(document.getElementById('totalDonations').textContent) >= 10) {
+                document.getElementById('priorityBadge').innerHTML = '<div class="priority-badge">GOLD DONOR - Priority Access</div>';
+                document.getElementById('priorityBadge').style.display = 'block';
+            }
+        }
+
+        // Request functions
+        function showRequestForm() {
+            document.getElementById('requestForm').style.display = 'block';
+        }
+
+        function hideRequestForm() {
+            document.getElementById('requestForm').style.display = 'none';
+        }
+
+        function submitBloodRequest(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const requestData = Object.fromEntries(formData);
+
+            alert(`Submitting blood request:\n${JSON.stringify(requestData, null, 2)}\n\nBackend integration needed for actual request submission.`);
+            hideRequestForm();
+            event.target.reset();
+            loadRequestsData();
+        }
+
+        function viewRequestDetails(requestId) {
+            alert(`Viewing details for request ${requestId}\n\nBackend integration needed for request details.`);
+        }
+
+        function cancelRequest(requestId) {
+            if (confirm(`Are you sure you want to cancel request ${requestId}?`)) {
+                alert(`Request ${requestId} cancelled\n\nBackend integration needed for request cancellation.`);
+                loadRequestsData();
+            }
+        }
+
+        // Hospital functions
+        function filterHospitals() {
+            const filter = document.getElementById('locationFilter').value;
+            alert(`Filtering hospitals by: ${filter}\n\nBackend integration needed for actual filtering.`);
+        }
+
+        function bookAppointment(hospitalId) {
+            alert(`Booking appointment at ${hospitalId}\n\nBackend integration needed for appointment booking.`);
+        }
+
+        function viewHospitalDetails(hospitalId) {
+            alert(`Viewing details for ${hospitalId}\n\nBackend integration needed for hospital details.`);
+        }
+
+        // Donation functions
+        function showDonationForm() {
+            document.getElementById('donationForm').style.display = 'block';
+        }
+
+        function hideDonationForm() {
+            document.getElementById('donationForm').style.display = 'none';
+        }
+
+        function scheduleDonation(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const donationData = Object.fromEntries(formData);
+
+            alert(`Scheduling donation:\n${JSON.stringify(donationData, null, 2)}\n\nBackend integration needed for actual scheduling.`);
+            hideDonationForm();
+            event.target.reset();
+            loadDonationsData();
+        }
+
+        function checkEligibility() {
+            alert('Checking donation eligibility...\n\nYou are eligible to donate blood. Your next eligible donation date is in 45 days.\n\nBackend integration needed for actual eligibility checking.');
+        }
+
+        function rescheduleAppointment(appointmentId) {
+            alert(`Rescheduling appointment ${appointmentId}\n\nBackend integration needed for appointment rescheduling.`);
+        }
+
+        function cancelAppointment(appointmentId) {
+            if (confirm(`Are you sure you want to cancel appointment ${appointmentId}?`)) {
+                alert(`Appointment ${appointmentId} cancelled\n\nBackend integration needed for appointment cancellation.`);
+                loadDonationsData();
+            }
+        }
+
+        // History functions
+        function exportHistory() {
+            alert('Exporting donation history...\n\nBackend integration needed for history export.');
+        }
+
+        function downloadCertificate(donationId) {
+            alert(`Downloading certificate for donation ${donationId}\n\nBackend integration needed for certificate generation.`);
+        }
+
+        // Profile functions
+        function editProfile() {
+            alert('Opening profile editor...\n\nBackend integration needed for profile editing.');
+        }
+
+        function updateMedicalHistory() {
+            alert('Opening medical history update...\n\nBackend integration needed for medical history updates.');
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.clear();
+            sessionStorage.clear();
+            alert('Logged out successfully!');
+            window.location.href = 'index.html';
+        }
+
+        // Initialize dashboard on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDashboardStats();
+        });
+    </script>
+</body>
+</html>
